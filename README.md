@@ -39,12 +39,17 @@ mcp dev product_mcp_server.py
 ```
 
 #### 在本地部署
-transport 选择 `stdio`,  MCP Client 与 Server 之间通过本地标准 I/O通信
+1. transport 选择 `stdio`,  MCP Client 与 Server 之间通过本地标准 I/O通信
 ```python
 mcp.run(transport='stdio')
 ```
-1. 如果 server 在本地，配置启动命令， CLINE 会通过`mcp run` / `uv run mcp run` / `unx` 等命令启动这个 server， CLINE 集成了 MCP Client 代码，可以与server 通信
-2. 如果 server 在远端部署，无论是通过配置 `/etc/systemd/system/mcp-server.service` 使用 `systemctl start mcp-server` 命令启动，还是通过`mcp run` / `uv run mcp run` / `unx` 等命令启动，都可以通过`{host}:{port}/sse`访问，在 CLINE中配置如下进行使用
+如果 server 在本地，配置启动命令， CLINE 会通过`mcp run` / `uv run mcp run` / `unx` 等命令启动这个 server， CLINE 集成了 MCP Client 代码，可以与server 通信
+2. transport 选择 `sse`,  MCP Client 与 Server 之间通过本地标准 I/O通信
+```python
+mcp.run(transport='sse')
+```
+如果 server 在远端部署，无论是通过配置 `/etc/systemd/system/mcp-server.service` 使用 `systemctl start mcp-server` 命令启动，还是通过`mcp run` / `uv run mcp run` / `unx` 等命令启动，都可以通过`{host}:{port}/sse`访问，在 CLINE中配置如下进行使用
+
    ```json
    "{server name}": {
         "url": "http://{host}:{port}:8000/sse",
