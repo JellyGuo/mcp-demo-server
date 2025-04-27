@@ -1,0 +1,12 @@
+{
+  "resource": "/products/{productId}/reviews",
+  "path": "/products/p001/reviews",
+  "httpMethod": "GET",
+  "pathParameters": {
+    "productId": "p001"
+  },
+  "requestContext": {
+    "resourcePath": "/products/{productId}/reviews",
+    "httpMethod": "GET"
+  }
+}

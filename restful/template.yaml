@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Product API
+  
+  SAM Template for Product API with two Lambda functions
+
+Globals:
+  Function:
+    Timeout: 3
+    Runtime: python3.9
+    Architectures:
+      - x86_64
+
+Resources:
+  ProductApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      OpenApiVersion: 3.0.1
+      Cors:
+        AllowMethods: "'GET,OPTIONS'"
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+        AllowOrigin: "'*'"
+
+  GetProductsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/
+      Handler: get_products.lambda_handler
+      Events:
+        GetProducts:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ProductApiGateway
+            Path: /products
+            Method: get
+
+  GetProductReviewsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/
+      Handler: get_product_reviews.lambda_handler
+      Events:
+        GetProductReviews:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ProductApiGateway
+            Path: /products/{productId}/reviews
+            Method: get
+
+Outputs:
+  ProductApi:
+    Description: "API Gateway endpoint URL for Prod stage for Product API"
+    Value: !Sub "https://${ProductApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  GetProductsFunction:
+    Description: "Get Products Lambda Function ARN"
+    Value: !GetAtt GetProductsFunction.Arn
+  GetProductReviewsFunction:
+    Description: "Get Product Reviews Lambda Function ARN"
+    Value: !GetAtt GetProductReviewsFunction.Arn

@@ -1,0 +1,9 @@
+{
+  "resource": "/products",
+  "path": "/products",
+  "httpMethod": "GET",
+  "requestContext": {
+    "resourcePath": "/products",
+    "httpMethod": "GET"
+  }
+}

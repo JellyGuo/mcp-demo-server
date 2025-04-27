@@ -1,0 +1,33 @@
+{
+    "mcpServers": {
+      "weather-server": {
+        "disabled": true,
+        "timeout": 60,
+        "command": "uv",
+        "args": [
+          "--directory",
+          "/Users/ericgd/Documents/gitspace/mcp-server-demo",
+          "run",
+          "weather-server.py"
+        ],
+        "transportType": "stdio"
+      },
+      "product-server": {
+        "disabled": true,
+        "timeout": 60,
+        "command": "uv",
+        "args": [
+          "--directory",
+          "/Users/ericgd/Documents/gitspace/mcp-server-demo",
+          "run",
+          "product-server.py"
+        ],
+        "transportType": "stdio"
+      },
+      "product-demo-server": {
+        "url": "http://localhost:8000/sse",
+        "disabled": false,
+        "autoApprove": []
+      }
+    }
+  }
